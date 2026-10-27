@@ -2,15 +2,20 @@
 from pathlib import Path
 import platform
 import socket
+import io
 
 import psutil
 import hashlib
 from flask import Flask, jsonify, send_from_directory, request
 
+from flask import send_file
+from cofre import criptografar, descriptografar, criar_arquivo_zip
+
 BASE_DIR = Path(__file__).resolve().parent
 PAINEL_DIR = BASE_DIR.parent / "painel"
 
 app = Flask(__name__)
+app.config["MAX_CONTENT_LENGTH"] = 100 * 1024 * 1024
 
 
 @app.route("/")
@@ -106,7 +111,68 @@ def analisar_arquivos():
         "total": len(resultados),
         "resultados": resultados
     })
-    
+
+
+@app.route("/api/cofre/criar", methods=["POST"])
+def criar_cofre():
+    arquivos = request.files.getlist("arquivos")
+    senha = request.form.get("senha", "")
+
+    if not arquivos or not any(a.filename for a in arquivos):
+        return jsonify({
+            "erro": "Selecione pelo menos um arquivo."
+        }), 400
+
+    if len(senha) < 12:
+        return jsonify({
+            "erro": "A senha deve ter pelo menos 12 caracteres."
+        }), 400
+
+    try:
+        pacote_zip = criar_arquivo_zip(arquivos)
+        conteudo_cifrado = criptografar(pacote_zip, senha)
+
+        return send_file(
+            io.BytesIO(conteudo_cifrado),
+            mimetype="application/octet-stream",
+            as_attachment=True,
+            download_name="meu_cofre.usblab"
+        )
+
+    except (ValueError, OSError) as erro:
+        return jsonify({"erro": str(erro)}), 400
+
+
+@app.route("/api/cofre/abrir", methods=["POST"])
+def abrir_cofre():
+    arquivo = request.files.get("cofre")
+    senha = request.form.get("senha", "")
+
+    if not arquivo or not arquivo.filename:
+        return jsonify({
+            "erro": "Selecione um arquivo de cofre."
+        }), 400
+
+    if not senha:
+        return jsonify({
+            "erro": "Informe a senha do cofre."
+        }), 400
+
+    try:
+        conteudo_cifrado = arquivo.read()
+        pacote_zip = descriptografar(conteudo_cifrado, senha)
+
+        return send_file(
+            io.BytesIO(pacote_zip),
+            mimetype="application/zip",
+            as_attachment=True,
+            download_name="projetos_recuperados.zip"
+        )
+
+    except ValueError as erro:
+        return jsonify({"erro": str(erro)}), 400
+
+
 if __name__ == "__main__":
     print("USB Security Lab iniciado.")
     print("Abra http://127.0.0.1:5000")

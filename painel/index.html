@@ -129,6 +129,61 @@
             </article>
         </section>
 
+        
+        <!-- TELA DE PROTEÇÃO -->
+        <section id="protecaoPage" class="content-page" hidden>
+            <section class="section-heading">
+                <div>
+                    <h2>Análise de arquivos</h2>
+                    <p>Verifique arquivos sem executá-los.</p>
+                </div>
+                <span class="demo-label">ANÁLISE INICIAL</span>
+            </section>
+
+            <article class="panel scan-panel">
+                <div class="scan-intro">
+                    <span class="scan-icon">⌕</span>
+                    <div>
+                        <h2>Verificar arquivos</h2>
+                        <p>Selecione um ou mais arquivos do computador para analisar.</p>
+                    </div>
+                </div>
+
+                <form id="scanForm">
+                    <label for="scanFiles">Arquivos para verificar</label>
+                    <input
+                        id="scanFiles"
+                        name="arquivos"
+                        type="file"
+                        multiple
+                        required
+                    >
+
+                    <button class="primary-button" id="scanButton" type="submit">
+                        Analisar arquivos
+                    </button>
+                </form>
+
+                <p class="scan-notice">
+                    A análise inicial calcula o hash SHA-256 e identifica algumas
+                    extensões que merecem atenção. Ela não garante que um arquivo
+                    esteja livre de malware.
+                </p>
+            </article>
+
+            <article class="panel results-panel">
+                <h2>Resultado da análise</h2>
+                <div id="scanResults" aria-live="polite">
+                    <div class="empty-state">
+                        <span>⌕</span>
+                        <strong>Nenhuma análise realizada</strong>
+                        <small>Os resultados aparecerão aqui.</small>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+
         <footer>
             USB Security Lab · Protótipo local
             <span>Proteção, transparência e controle.</span>
