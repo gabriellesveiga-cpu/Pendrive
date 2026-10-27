@@ -1,0 +1,401 @@
+
+:root {
+    --bg: #101820;
+    --sidebar: #131e27;
+    --panel: #1a2731;
+    --panel-hover: #22323d;
+    --border: #2a3b46;
+    --green: #65dfb5;
+    --text: #edf5f5;
+    --muted: #93a6b2;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", Arial, sans-serif;
+    min-height: 100vh;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+.sidebar {
+    width: 250px;
+    position: fixed;
+    inset: 0 auto 0 0;
+    background: var(--sidebar);
+    border-right: 1px solid var(--border);
+    padding: 28px 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 8px 35px;
+}
+
+.logo-icon {
+    color: var(--green);
+    font-size: 38px;
+}
+
+.logo h2 {
+    font-size: 17px;
+}
+
+.logo small,
+.profile small {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+nav {
+    display: grid;
+    gap: 8px;
+}
+
+.nav-item {
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--muted);
+    text-align: left;
+    padding: 13px;
+    border-radius: 9px;
+    font-size: 13px;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: #203a38;
+    border-color: #31564d;
+    color: var(--green);
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 15px 8px;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    margin-right: 7px;
+}
+
+.main {
+    margin-left: 250px;
+    padding: 30px 36px;
+    max-width: 1700px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.eyebrow {
+    color: var(--green);
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+h1 {
+    font-size: 27px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile strong,
+.profile small {
+    display: block;
+}
+
+.profile strong {
+    font-size: 12px;
+}
+
+.profile small {
+    margin-top: 4px;
+    letter-spacing: 0;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #25443e;
+    color: var(--green);
+}
+
+.welcome {
+    min-height: 205px;
+    border: 1px solid #31534c;
+    border-radius: 16px;
+    padding: 28px 32px;
+    background: linear-gradient(115deg, #1d3835, #192731 75%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+}
+
+.tag,
+.demo-label {
+    color: var(--green);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+}
+
+.welcome h2 {
+    font-size: clamp(24px, 3vw, 36px);
+    line-height: 1.2;
+    margin: 15px 0 10px;
+}
+
+.welcome p,
+.section-heading p,
+.panel > p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.shield {
+    color: #65dfb5;
+    font-size: 120px;
+    opacity: 0.75;
+    padding: 0 25px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 32px 0 17px;
+}
+
+.section-heading h2,
+.panel h2 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.demo-label {
+    font-size: 9px;
+    border: 1px solid #3a6358;
+    padding: 7px 10px;
+    border-radius: 6px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.card,
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.card-icon {
+    width: 37px;
+    height: 37px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: #25443e;
+    color: var(--green);
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.card p {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 9px;
+}
+
+.card h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    overflow-wrap: anywhere;
+}
+
+.card small,
+.action-button small {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.lower-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.panel > p {
+    margin-bottom: 20px;
+}
+
+.actions {
+    display: grid;
+    gap: 10px;
+}
+
+.action-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    color: var(--text);
+    background: transparent;
+    text-align: left;
+}
+
+.action-button:hover {
+    background: var(--panel-hover);
+}
+
+.action-button > span:first-child {
+    color: var(--green);
+    font-size: 22px;
+}
+
+.action-button > span:last-child {
+    margin-left: auto;
+    color: var(--muted);
+}
+
+.action-button strong,
+.action-button small {
+    display: block;
+}
+
+.action-button strong {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.empty-state {
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.empty-state > span {
+    font-size: 27px;
+    color: var(--green);
+}
+
+.empty-state strong {
+    font-size: 12px;
+}
+
+.empty-state small {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 30px;
+}
+
+@media (max-width: 1100px) {
+    .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .lower-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    .sidebar {
+        width: 100%;
+        position: static;
+        padding: 18px;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }
+
+    nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 22px 16px;
+    }
+
+    .welcome {
+        padding: 22px;
+    }
+
+    .shield {
+        display: none;
+    }
+
+    .topbar {
+        gap: 15px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .demo-label {
+        display: none;
+    }
+
+    footer {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USB Security Lab</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <span class="logo-icon">⬡</span>
+            <div>
+                <h2>USB Security</h2>
+                <small>LABORATÓRIO DIGITAL</small>
+            </div>
+        </div>
+
+        <nav>
+            <button class="nav-item active" data-page="inicio">⌂ Visão geral</button>
+            <button class="nav-item" data-page="protecao">◈ Proteção</button>
+            <button class="nav-item" data-page="usb">▣ Dispositivos USB</button>
+            <button class="nav-item" data-page="relatorios">▤ Relatórios</button>
+            <button class="nav-item" data-page="configuracoes">⚙ Configurações</button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <span class="status-dot"></span>
+            Painel local
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">CENTRAL DE SEGURANÇA</p>
+                <h1 id="pageTitle">Visão geral</h1>
+            </div>
+            <div class="profile">
+                <span class="avatar">U</span>
+                <div>
+                    <strong>Usuário</strong>
+                    <small>Administrador local</small>
+                </div>
+            </div>
+        </header>
+
+        <section class="welcome">
+            <div>
+                <span class="tag">USB SECURITY LAB</span>
+                <h2>Segurança começa com<br>visibilidade.</h2>
+                <p>Acompanhe o estado do sistema e organize suas verificações de segurança.</p>
+            </div>
+            <div class="shield">⬡</div>
+        </section>
+
+        <section class="section-heading">
+            <div>
+                <h2>Estado do sistema</h2>
+                <p>Resumo demonstrativo do painel</p>
+            </div>
+            <span class="demo-label">MODO DEMONSTRAÇÃO</span>
+        </section>
+
+        <section class="cards">
+            <article class="card">
+                <div class="card-icon">⌘</div>
+                <p>Computador</p>
+                <h3 id="computerStatus">Não conectado</h3>
+                <small>Integração pendente</small>
+            </article>
+
+            <article class="card">
+                <div class="card-icon">▣</div>
+                <p>Chave USB</p>
+                <h3 id="usbStatus">Não verificada</h3>
+                <small>Verificação pendente</small>
+            </article>
+
+            <article class="card">
+                <div class="card-icon">◈</div>
+                <p>Verificações</p>
+                <h3>Não iniciadas</h3>
+                <small>Nenhuma análise executada</small>
+            </article>
+
+            <article class="card">
+                <div class="card-icon">◎</div>
+                <p>Conexão remota</p>
+                <h3>Desativada</h3>
+                <small>Nenhuma sessão iniciada</small>
+            </article>
+        </section>
+
+        <section class="lower-grid">
+            <article class="panel">
+                <h2>Ações rápidas</h2>
+                <p>Escolha uma área para explorar.</p>
+                <div class="actions">
+                    <button class="action-button" data-page="protecao">
+                        <span>⌕</span>
+                        <div>
+                            <strong>Verificações de segurança</strong>
+                            <small>Área de análise de ameaças</small>
+                        </div>
+                        <span>›</span>
+                    </button>
+
+                    <button class="action-button" data-page="usb">
+                        <span>▣</span>
+                        <div>
+                            <strong>Gerenciar dispositivos USB</strong>
+                            <small>Área de dispositivos autorizados</small>
+                        </div>
+                        <span>›</span>
+                    </button>
+                </div>
+            </article>
+
+            <article class="panel">
+                <h2>Atividade recente</h2>
+                <div class="empty-state">
+                    <span>◷</span>
+                    <strong>Nenhuma atividade registrada</strong>
+                    <small>Os eventos aparecerão aqui quando forem implementados.</small>
+                </div>
+            </article>
+        </section>
+
+        <footer>
+            USB Security Lab · Protótipo local
+            <span>Proteção, transparência e controle.</span>
+        </footer>
+    </main>
+</body>
+</html>
