@@ -1,13 +1,13 @@
-
 :root {
-    --bg: #101820;
-    --sidebar: #131e27;
-    --panel: #1a2731;
-    --panel-hover: #22323d;
-    --border: #2a3b46;
-    --green: #65dfb5;
-    --text: #edf5f5;
-    --muted: #93a6b2;
+    --bg: #080808;
+    --sidebar: #0d0d0f;
+    --panel: #141416;
+    --panel-hover: #202024;
+    --border: #29262f;
+
+    --green: #b69aff;
+    --text: #f2eff8;
+    --muted: #a39bad;
 }
 
 * {
@@ -75,13 +75,14 @@ nav {
     padding: 13px;
     border-radius: 9px;
     font-size: 13px;
+    transition: background 0.2s, color 0.2s;
 }
 
 .nav-item:hover,
 .nav-item.active {
-    background: #203a38;
-    border-color: #31564d;
-    color: var(--green);
+    background: #211a30;
+    border-color: #493763;
+    color: #c7b3ff;
 }
 
 .sidebar-footer {
@@ -150,16 +151,17 @@ h1 {
     display: grid;
     place-items: center;
     border-radius: 12px;
-    background: #25443e;
+    background: #211a30;
     color: var(--green);
+    border: 1px solid #382c4d;
 }
 
 .welcome {
     min-height: 205px;
-    border: 1px solid #31534c;
+    border: 1px solid #30263e;
     border-radius: 16px;
     padding: 28px 32px;
-    background: linear-gradient(115deg, #1d3835, #192731 75%);
+    background: linear-gradient(115deg, #17131f, #101013 75%);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -188,7 +190,7 @@ h1 {
 }
 
 .shield {
-    color: #65dfb5;
+    color: var(--green);
     font-size: 120px;
     opacity: 0.75;
     padding: 0 25px;
@@ -209,9 +211,10 @@ h1 {
 
 .demo-label {
     font-size: 9px;
-    border: 1px solid #3a6358;
+    border: 1px solid #493763;
     padding: 7px 10px;
     border-radius: 6px;
+    background: #17131f;
 }
 
 .cards {
@@ -226,6 +229,12 @@ h1 {
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 20px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.card:hover {
+    background: var(--panel-hover);
+    border-color: #40334f;
 }
 
 .card-icon {
@@ -234,7 +243,8 @@ h1 {
     display: grid;
     place-items: center;
     border-radius: 10px;
-    background: #25443e;
+    background: #211a30;
+    border: 1px solid #382c4d;
     color: var(--green);
     font-size: 20px;
     margin-bottom: 20px;
@@ -285,14 +295,18 @@ h1 {
     color: var(--text);
     background: transparent;
     text-align: left;
+    transition: background 0.2s, border-color 0.2s;
 }
 
 .action-button:hover {
     background: var(--panel-hover);
+    border-color: #40334f;
 }
 
 .action-button > span:first-child {
     color: var(--green);
+    background: #211a30;
+    border-radius: 8px;
     font-size: 22px;
 }
 
@@ -345,6 +359,11 @@ footer {
     margin-top: 30px;
 }
 
+button:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 3px;
+}
+
 @media (max-width: 1100px) {
     .cards {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -385,6 +404,7 @@ footer {
 
     .topbar {
         gap: 15px;
+        flex-wrap: wrap;
     }
 
     .cards {

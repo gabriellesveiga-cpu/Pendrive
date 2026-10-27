@@ -2,6 +2,7 @@
 import io
 import secrets
 import zipfile
+from collections import Counter
 
 from cryptography.exceptions import InvalidTag
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
@@ -11,6 +12,11 @@ from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 FORMATO = b"USBLAB01"
 TAMANHO_SALT = 16
 TAMANHO_NONCE = 12
+
+# Limites para reduzir o risco de consumo excessivo de memória.
+MAX_ARQUIVOS = 200
+MAX_ARQUIVO_BYTES = 25 * 1024 * 1024
+MAX_TOTAL_BYTES = 90 * 1024 * 1024
 
 
 def derivar_chave(senha: str, salt: bytes) -> bytes:
@@ -76,24 +82,65 @@ def descriptografar(cofre: bytes, senha: str) -> bytes:
 
 
 def criar_arquivo_zip(arquivos) -> bytes:
+    arquivos_validos = [
+        arquivo
+        for arquivo in arquivos
+        if arquivo.filename and not arquivo.filename.endswith("/")
+    ]
+
+    if not arquivos_validos:
+        raise ValueError("Selecione pelo menos um arquivo.")
+
+    if len(arquivos_validos) > MAX_ARQUIVOS:
+        raise ValueError(
+            f"O limite é de {MAX_ARQUIVOS} arquivos por cofre."
+        )
+
     memoria = io.BytesIO()
+    nomes_usados = set()
+    total_bytes = 0
 
     with zipfile.ZipFile(
         memoria, "w", zipfile.ZIP_DEFLATED
     ) as arquivo_zip:
-        for arquivo in arquivos:
-            nome = arquivo.filename
 
-            if not nome or nome.endswith("/"):
-                continue
+        for arquivo in arquivos_validos:
+            # Remove caminhos enviados pelo navegador.
+            nome = arquivo.filename.replace("\\", "/").split("/")[-1]
+            nome = nome.strip()
 
-            # Guarda apenas o nome, sem caminhos enviados pelo cliente.
-            nome_seguro = nome.replace("\\", "/").split("/")[-1]
+            if nome in ("", ".", ".."):
+                raise ValueError("Um dos arquivos tem nome inválido.")
 
-            if nome_seguro in ("", ".", ".."):
-                continue
+            conteudo = arquivo.stream.read(MAX_ARQUIVO_BYTES + 1)
 
-            conteudo = arquivo.read()
-            arquivo_zip.writestr(nome_seguro, conteudo)
+            if len(conteudo) > MAX_ARQUIVO_BYTES:
+                raise ValueError(
+                    f"O arquivo '{nome}' ultrapassa o limite de 25 MB."
+                )
+
+            total_bytes += len(conteudo)
+
+            if total_bytes > MAX_TOTAL_BYTES:
+                raise ValueError(
+                    "O total dos arquivos ultrapassa o limite de 90 MB."
+                )
+
+            # Evita nomes repetidos dentro do ZIP.
+            nome_base = nome
+            contador = 2
+
+            while nome.casefold() in nomes_usados:
+                partes = nome_base.rsplit(".", 1)
+
+                if len(partes) == 2 and partes[0]:
+                    nome = f"{partes[0]} ({contador}).{partes[1]}"
+                else:
+                    nome = f"{nome_base} ({contador})"
+
+                contador += 1
+
+            nomes_usados.add(nome.casefold())
+            arquivo_zip.writestr(nome, conteudo)
 
     return memoria.getvalue()

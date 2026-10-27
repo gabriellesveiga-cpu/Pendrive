@@ -131,57 +131,199 @@
 
         
         <!-- TELA DE PROTEÇÃO -->
-        <section id="protecaoPage" class="content-page" hidden>
-            <section class="section-heading">
+        
+<!-- CENTRAL DE PROTEÇÃO -->
+<section id="protecaoPage" class="content-page" hidden>
+
+    <section class="section-heading">
+        <div>
+            <h2>Central de Proteção</h2>
+            <p>Escolha uma ferramenta para proteger e analisar seus arquivos.</p>
+        </div>
+        <span class="demo-label">FERRAMENTAS DE SEGURANÇA</span>
+    </section>
+
+    <!-- CARTÕES DAS FERRAMENTAS -->
+    <div class="cards protection-tools">
+
+        <button type="button" class="card tool-card" data-tool="analise">
+            <div class="card-icon">⌕</div>
+            <h3>Análise de arquivos</h3>
+            <p>Calcule o SHA-256 e identifique extensões suspeitas.</p>
+            <small>Abrir ferramenta →</small>
+        </button>
+
+        <button type="button" class="card tool-card" data-tool="cofre">
+            <div class="card-icon">🔐</div>
+            <h3>Cofre de Projetos</h3>
+            <p>Criptografe seus projetos com uma senha pessoal.</p>
+            <small>Abrir ferramenta →</small>
+        </button>
+
+    </div>
+
+    <!-- FERRAMENTA: ANÁLISE -->
+    <section id="analiseTool" class="protection-tool" hidden>
+
+        <article class="panel scan-panel">
+            <button type="button" class="back-button" data-tool="voltar">
+                ← Voltar às ferramentas
+            </button>
+
+            <div class="scan-intro">
+                <span class="scan-icon">⌕</span>
                 <div>
                     <h2>Análise de arquivos</h2>
-                    <p>Verifique arquivos sem executá-los.</p>
+                    <p>Selecione arquivos para analisá-los sem executá-los.</p>
                 </div>
-                <span class="demo-label">ANÁLISE INICIAL</span>
-            </section>
+            </div>
 
-            <article class="panel scan-panel">
-                <div class="scan-intro">
-                    <span class="scan-icon">⌕</span>
-                    <div>
-                        <h2>Verificar arquivos</h2>
-                        <p>Selecione um ou mais arquivos do computador para analisar.</p>
-                    </div>
+            <form id="scanForm">
+                <label for="scanFiles">Arquivos para verificar</label>
+                <input
+                    id="scanFiles"
+                    name="arquivos"
+                    type="file"
+                    multiple
+                    required
+                >
+
+                <button class="primary-button" id="scanButton" type="submit">
+                    Analisar arquivos
+                </button>
+            </form>
+
+            <p class="scan-notice">
+                Esta análise calcula o hash SHA-256 e identifica algumas
+                extensões suspeitas. Ela não garante que um arquivo esteja
+                livre de malware.
+            </p>
+        </article>
+
+        <article class="panel results-panel">
+            <h2>Resultado da análise</h2>
+            <div id="scanResults" aria-live="polite">
+                <div class="empty-state">
+                    <span>⌕</span>
+                    <strong>Nenhuma análise realizada</strong>
+                    <small>Os resultados aparecerão aqui.</small>
                 </div>
+            </div>
+        </article>
 
-                <form id="scanForm">
-                    <label for="scanFiles">Arquivos para verificar</label>
+    </section>
+
+    <!-- FERRAMENTA: COFRE -->
+    <section id="cofreTool" class="protection-tool" hidden>
+
+        <button type="button" class="back-button" data-tool="voltar">
+            ← Voltar às ferramentas
+        </button>
+
+        <section class="section-heading">
+            <div>
+                <h2>Cofre de Projetos</h2>
+                <p>Proteja seus projetos com criptografia e uma senha.</p>
+            </div>
+            <span class="demo-label">AES-256-GCM</span>
+        </section>
+
+        <div class="cards vault-tools">
+
+            <article class="card">
+                <div class="card-icon">🔒</div>
+                <h3>Criar cofre</h3>
+                <p>Transforme seus arquivos em um pacote criptografado.</p>
+
+                <form id="vaultCreateForm">
+                    <label for="vaultFiles">Arquivos do projeto</label>
                     <input
-                        id="scanFiles"
+                        id="vaultFiles"
                         name="arquivos"
                         type="file"
                         multiple
                         required
                     >
 
-                    <button class="primary-button" id="scanButton" type="submit">
-                        Analisar arquivos
+                    <label for="vaultCreatePassword">Criar senha</label>
+                    <input
+                        id="vaultCreatePassword"
+                        name="senha"
+                        type="password"
+                        minlength="12"
+                        autocomplete="new-password"
+                        placeholder="Mínimo de 12 caracteres"
+                        required
+                    >
+
+                    <button
+                        class="primary-button"
+                        id="vaultCreateButton"
+                        type="submit"
+                    >
+                        Criar cofre criptografado
                     </button>
                 </form>
 
-                <p class="scan-notice">
-                    A análise inicial calcula o hash SHA-256 e identifica algumas
-                    extensões que merecem atenção. Ela não garante que um arquivo
-                    esteja livre de malware.
-                </p>
+                <p id="vaultCreateMessage" aria-live="polite"></p>
             </article>
 
-            <article class="panel results-panel">
-                <h2>Resultado da análise</h2>
-                <div id="scanResults" aria-live="polite">
-                    <div class="empty-state">
-                        <span>⌕</span>
-                        <strong>Nenhuma análise realizada</strong>
-                        <small>Os resultados aparecerão aqui.</small>
-                    </div>
-                </div>
+            <article class="card">
+                <div class="card-icon">🔑</div>
+                <h3>Abrir cofre</h3>
+                <p>Recupere os arquivos de um cofre existente.</p>
+
+                <form id="vaultOpenForm">
+                    <label for="vaultFile">Arquivo .usblab</label>
+                    <input
+                        id="vaultFile"
+                        name="cofre"
+                        type="file"
+                        accept=".usblab"
+                        required
+                    >
+
+                    <label for="vaultOpenPassword">Senha do cofre</label>
+                    <input
+                        id="vaultOpenPassword"
+                        name="senha"
+                        type="password"
+                        autocomplete="current-password"
+                        placeholder="Digite sua senha"
+                        required
+                    >
+
+                    <button
+                        class="primary-button"
+                        id="vaultOpenButton"
+                        type="submit"
+                    >
+                        Descriptografar arquivos
+                    </button>
+                </form>
+
+                <p id="vaultOpenMessage" aria-live="polite"></p>
             </article>
-        </section>
+
+        </div>
+
+        <article class="panel">
+            <h3>Importante sobre seus arquivos</h3>
+            <p>
+                Guarde uma cópia do arquivo .usblab em outro local seguro.
+                A senha não é armazenada pelo sistema. Se você perdê-la,
+                não será possível recuperar o conteúdo por este método.
+            </p>
+            <p>
+                Ao abrir o cofre, os arquivos serão baixados em um ZIP.
+                Confira o conteúdo antes de abrir ou executar arquivos
+                recuperados.
+            </p>
+        </article>
+
+    </section>
+
+</section>
 
 
         <footer>
