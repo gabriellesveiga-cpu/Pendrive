@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USB Security Lab | Painel</title>
+
+    <link rel="stylesheet" href="painel.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">USB</div>
+            <div>
+                <h2>SECURITY LAB</h2>
+                <span>PAINEL DE CONTROLE</span>
+            </div>
+        </div>
+
+        <nav>
+            <a class="active" href="#inicio">Visão geral</a>
+            <a href="#solicitacoes">Solicitações</a>
+            <a href="#sessoes">Sessões</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <span class="status-dot"></span>
+            Sistema local
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <span class="eyebrow">CENTRAL DE MONITORAMENTO</span>
+                <h1>Visão geral</h1>
+                <p>Acompanhe as solicitações e sessões do sistema.</p>
+            </div>
+
+            <div class="server-status">
+                <span class="status-dot"></span>
+                <span id="statusServidor">Verificando servidor...</span>
+            </div>
+        </header>
+
+        <section class="cards" id="inicio">
+
+            <article class="card">
+                <span class="card-label">Total de sessões</span>
+                <strong id="totalSessoes">0</strong>
+                <span class="card-description">Registradas no servidor</span>
+            </article>
+
+            <article class="card">
+                <span class="card-label">Aguardando aprovação</span>
+                <strong id="pendentes">0</strong>
+                <span class="card-description">Solicitações recebidas</span>
+            </article>
+
+            <article class="card">
+                <span class="card-label">Sessões ativas</span>
+                <strong id="ativas">0</strong>
+                <span class="card-description">Sessões aprovadas</span>
+            </article>
+
+            <article class="card">
+                <span class="card-label">Sessões encerradas</span>
+                <strong id="encerradas">0</strong>
+                <span class="card-description">Finalizadas ou recusadas</span>
+            </article>
+
+        </section>
+
+        <section class="panel" id="solicitacoes">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">MONITORAMENTO</span>
+                    <h2>Solicitações e sessões</h2>
+                </div>
+
+                <button id="atualizar">Atualizar</button>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Computador</th>
+                            <th>Identificador</th>
+                            <th>Data de criação</th>
+                            <th>Status</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="listaSessoes">
+                        <tr>
+                            <td colspan="5">Carregando sessões...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer>
+            USB Security Lab · Ambiente de desenvolvimento local
+        </footer>
+
+    </main>
+
+    <script src="./painel.js"></script>
+
+</body>
+</html>
