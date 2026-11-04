@@ -4,332 +4,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USB Security Lab</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="app.js" defer></script>
+
+    <title>USB Security Lab | Painel Administrativo</title>
+
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/painel/script.css">
+
+    <script src="/painel/sessoes.js" defer></script>
+    <script src="/painel/cadastros.js" defer></script>
 </head>
+
 <body>
-    <aside class="sidebar">
-        <div class="logo">
-            <span class="logo-icon">⬡</span>
-            <div>
-                <h2>USB Security</h2>
-                <small>LABORATÓRIO DIGITAL</small>
-            </div>
-        </div>
-
-        <nav>
-            <button class="nav-item active" data-page="inicio">⌂ Visão geral</button>
-            <button class="nav-item" data-page="protecao">◈ Proteção</button>
-            <button class="nav-item" data-page="usb">▣ Dispositivos USB</button>
-            <button class="nav-item" data-page="relatorios">▤ Relatórios</button>
-            <button class="nav-item" data-page="configuracoes">⚙ Configurações</button>
-        </nav>
-
-        <div class="sidebar-footer">
-            <span class="status-dot"></span>
-            Painel local
-        </div>
-    </aside>
-
-    <main class="main">
-        <header class="topbar">
-            <div>
-                <p class="eyebrow">CENTRAL DE SEGURANÇA</p>
-                <h1 id="pageTitle">Visão geral</h1>
-            </div>
-            <div class="profile">
-                <span class="avatar">U</span>
-                <div>
-                    <strong>Usuário</strong>
-                    <small>Administrador local</small>
-                </div>
-            </div>
+    <main class="container">
+        <header>
+            <h1>USB Security Lab</h1>
+            <p>Painel administrativo de sessões</p>
+            <p id="statusServidor">Verificando servidor...</p>
         </header>
 
-        <section class="welcome">
-            <div>
-                <span class="tag">USB SECURITY LAB</span>
-                <h2>Segurança começa com<br>visibilidade.</h2>
-                <p>Acompanhe o estado do sistema e organize suas verificações de segurança.</p>
-            </div>
-            <div class="shield">⬡</div>
-        </section>
-
-        <section class="section-heading">
-            <div>
-                <h2>Estado do sistema</h2>
-                <p>Resumo demonstrativo do painel</p>
-            </div>
-            <span class="demo-label">MODO DEMONSTRAÇÃO</span>
-        </section>
-
-        <section class="cards">
+        <!-- RESUMO DAS SESSÕES -->
+        <section class="resumo">
             <article class="card">
-                <div class="card-icon">⌘</div>
-                <p>Computador</p>
-                <h3 id="computerStatus">Não conectado</h3>
-                <small>Integração pendente</small>
+                <h2>Total de sessões</h2>
+                <p id="totalSessoes">0</p>
             </article>
 
             <article class="card">
-                <div class="card-icon">▣</div>
-                <p>Chave USB</p>
-                <h3 id="usbStatus">Não verificada</h3>
-                <small>Verificação pendente</small>
+                <h2>Pendentes</h2>
+                <p id="pendentes">0</p>
             </article>
 
             <article class="card">
-                <div class="card-icon">◈</div>
-                <p>Verificações</p>
-                <h3>Não iniciadas</h3>
-                <small>Nenhuma análise executada</small>
+                <h2>Ativas</h2>
+                <p id="ativas">0</p>
             </article>
 
             <article class="card">
-                <div class="card-icon">◎</div>
-                <p>Conexão remota</p>
-                <h3>Desativada</h3>
-                <small>Nenhuma sessão iniciada</small>
+                <h2>Encerradas</h2>
+                <p id="encerradas">0</p>
             </article>
         </section>
 
-        <section class="lower-grid">
-            <article class="panel">
-                <h2>Ações rápidas</h2>
-                <p>Escolha uma área para explorar.</p>
-                <div class="actions">
-                    <button class="action-button" data-page="protecao">
-                        <span>⌕</span>
-                        <div>
-                            <strong>Verificações de segurança</strong>
-                            <small>Área de análise de ameaças</small>
-                        </div>
-                        <span>›</span>
-                    </button>
+        <!-- CADASTROS DE COMPUTADORES -->
+        <section class="sessoes">
+            <div class="cabecalho-sessoes">
+                <h2>Computadores aguardando cadastro</h2>
 
-                    <button class="action-button" data-page="usb">
-                        <span>▣</span>
-                        <div>
-                            <strong>Gerenciar dispositivos USB</strong>
-                            <small>Área de dispositivos autorizados</small>
-                        </div>
-                        <span>›</span>
-                    </button>
-                </div>
-            </article>
-
-            <article class="panel">
-                <h2>Atividade recente</h2>
-                <div class="empty-state">
-                    <span>◷</span>
-                    <strong>Nenhuma atividade registrada</strong>
-                    <small>Os eventos aparecerão aqui quando forem implementados.</small>
-                </div>
-            </article>
-        </section>
-
-        
-        <!-- TELA DE PROTEÇÃO -->
-        
-<!-- CENTRAL DE PROTEÇÃO -->
-<section id="protecaoPage" class="content-page" hidden>
-
-    <section class="section-heading">
-        <div>
-            <h2>Central de Proteção</h2>
-            <p>Escolha uma ferramenta para proteger e analisar seus arquivos.</p>
-        </div>
-        <span class="demo-label">FERRAMENTAS DE SEGURANÇA</span>
-    </section>
-
-    <!-- CARTÕES DAS FERRAMENTAS -->
-    <div class="cards protection-tools">
-
-        <button type="button" class="card tool-card" data-tool="analise">
-            <div class="card-icon">⌕</div>
-            <h3>Análise de arquivos</h3>
-            <p>Calcule o SHA-256 e identifique extensões suspeitas.</p>
-            <small>Abrir ferramenta →</small>
-        </button>
-
-        <button type="button" class="card tool-card" data-tool="cofre">
-            <div class="card-icon">🔐</div>
-            <h3>Cofre de Projetos</h3>
-            <p>Criptografe seus projetos com uma senha pessoal.</p>
-            <small>Abrir ferramenta →</small>
-        </button>
-
-    </div>
-
-    <!-- FERRAMENTA: ANÁLISE -->
-    <section id="analiseTool" class="protection-tool" hidden>
-
-        <article class="panel scan-panel">
-            <button type="button" class="back-button" data-tool="voltar">
-                ← Voltar às ferramentas
-            </button>
-
-            <div class="scan-intro">
-                <span class="scan-icon">⌕</span>
-                <div>
-                    <h2>Análise de arquivos</h2>
-                    <p>Selecione arquivos para analisá-los sem executá-los.</p>
-                </div>
-            </div>
-
-            <form id="scanForm">
-                <label for="scanFiles">Arquivos para verificar</label>
-                <input
-                    id="scanFiles"
-                    name="arquivos"
-                    type="file"
-                    multiple
-                    required
-                >
-
-                <button class="primary-button" id="scanButton" type="submit">
-                    Analisar arquivos
+                <button id="atualizarCadastros" type="button">
+                    Atualizar cadastros
                 </button>
-            </form>
-
-            <p class="scan-notice">
-                Esta análise calcula o hash SHA-256 e identifica algumas
-                extensões suspeitas. Ela não garante que um arquivo esteja
-                livre de malware.
-            </p>
-        </article>
-
-        <article class="panel results-panel">
-            <h2>Resultado da análise</h2>
-            <div id="scanResults" aria-live="polite">
-                <div class="empty-state">
-                    <span>⌕</span>
-                    <strong>Nenhuma análise realizada</strong>
-                    <small>Os resultados aparecerão aqui.</small>
-                </div>
             </div>
-        </article>
 
-    </section>
+            <div class="tabela-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Computador</th>
+                            <th>Identificador</th>
+                            <th>Data</th>
+                            <th>Identidade</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
 
-    <!-- FERRAMENTA: COFRE -->
-    <section id="cofreTool" class="protection-tool" hidden>
-
-        <button type="button" class="back-button" data-tool="voltar">
-            ← Voltar às ferramentas
-        </button>
-
-        <section class="section-heading">
-            <div>
-                <h2>Cofre de Projetos</h2>
-                <p>Proteja seus projetos com criptografia e uma senha.</p>
+                    <tbody id="listaCadastros">
+                        <tr>
+                            <td colspan="5">
+                                Carregando cadastros...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <span class="demo-label">AES-256-GCM</span>
         </section>
 
-        <div class="cards vault-tools">
+        <!-- SESSÕES REGISTRADAS -->
+        <section class="sessoes">
+            <div class="cabecalho-sessoes">
+                <h2>Sessões registradas</h2>
 
-            <article class="card">
-                <div class="card-icon">🔒</div>
-                <h3>Criar cofre</h3>
-                <p>Transforme seus arquivos em um pacote criptografado.</p>
+                <button id="atualizar" type="button">
+                    Atualizar
+                </button>
+            </div>
 
-                <form id="vaultCreateForm">
-                    <label for="vaultFiles">Arquivos do projeto</label>
-                    <input
-                        id="vaultFiles"
-                        name="arquivos"
-                        type="file"
-                        multiple
-                        required
-                    >
+            <div class="tabela-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Computador</th>
+                            <th>Identificador</th>
+                            <th>Data</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
 
-                    <label for="vaultCreatePassword">Criar senha</label>
-                    <input
-                        id="vaultCreatePassword"
-                        name="senha"
-                        type="password"
-                        minlength="12"
-                        autocomplete="new-password"
-                        placeholder="Mínimo de 12 caracteres"
-                        required
-                    >
-
-                    <button
-                        class="primary-button"
-                        id="vaultCreateButton"
-                        type="submit"
-                    >
-                        Criar cofre criptografado
-                    </button>
-                </form>
-
-                <p id="vaultCreateMessage" aria-live="polite"></p>
-            </article>
-
-            <article class="card">
-                <div class="card-icon">🔑</div>
-                <h3>Abrir cofre</h3>
-                <p>Recupere os arquivos de um cofre existente.</p>
-
-                <form id="vaultOpenForm">
-                    <label for="vaultFile">Arquivo .usblab</label>
-                    <input
-                        id="vaultFile"
-                        name="cofre"
-                        type="file"
-                        accept=".usblab"
-                        required
-                    >
-
-                    <label for="vaultOpenPassword">Senha do cofre</label>
-                    <input
-                        id="vaultOpenPassword"
-                        name="senha"
-                        type="password"
-                        autocomplete="current-password"
-                        placeholder="Digite sua senha"
-                        required
-                    >
-
-                    <button
-                        class="primary-button"
-                        id="vaultOpenButton"
-                        type="submit"
-                    >
-                        Descriptografar arquivos
-                    </button>
-                </form>
-
-                <p id="vaultOpenMessage" aria-live="polite"></p>
-            </article>
-
-        </div>
-
-        <article class="panel">
-            <h3>Importante sobre seus arquivos</h3>
-            <p>
-                Guarde uma cópia do arquivo .usblab em outro local seguro.
-                A senha não é armazenada pelo sistema. Se você perdê-la,
-                não será possível recuperar o conteúdo por este método.
-            </p>
-            <p>
-                Ao abrir o cofre, os arquivos serão baixados em um ZIP.
-                Confira o conteúdo antes de abrir ou executar arquivos
-                recuperados.
-            </p>
-        </article>
-
-    </section>
-
-</section>
-
-
-        <footer>
-            USB Security Lab · Protótipo local
-            <span>Proteção, transparência e controle.</span>
-        </footer>
+                    <tbody id="listaSessoes">
+                        <tr>
+                            <td colspan="5">
+                                Carregando sessões...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
 </body>
 </html>

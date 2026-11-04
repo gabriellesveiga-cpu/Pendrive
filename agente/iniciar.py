@@ -4,29 +4,39 @@ from tkinter import messagebox
 
 from autorizacao import pendrive_autorizado
 from solicitacoes import GerenciadorSolicitacoes
+from identidade import preparar_identidade
 
 
 class USBLab:
     def __init__(self, janela):
         self.janela = janela
         self.janela.title("USB Security Lab")
-        self.janela.geometry("420x260")
+        self.janela.geometry("460x380")
         self.janela.resizable(False, False)
 
         self.ativo = True
+        self.chave_publica = None
+
+        try:
+            self.chave_publica = preparar_identidade()
+        except Exception as erro:
+            messagebox.showerror(
+                "Erro na identidade",
+                f"Não foi possível preparar a identidade:\n{erro}"
+            )
 
         tk.Label(
             janela,
             text="USB SECURITY LAB",
-            font=("Arial", 18, "bold")
-        ).pack(pady=20)
+            font=("Arial", 19, "bold")
+        ).pack(pady=18)
 
         self.status = tk.Label(
             janela,
             text="Verificando pendrive...",
-            font=("Arial", 12)
+            font=("Arial", 12, "bold")
         )
-        self.status.pack(pady=15)
+        self.status.pack(pady=10)
 
         self.detalhe = tk.Label(
             janela,
@@ -35,18 +45,38 @@ class USBLab:
         )
         self.detalhe.pack(pady=5)
 
+        self.status_sessao = tk.Label(
+            janela,
+            text="Nenhuma sessão autorizada",
+            font=("Arial", 11),
+            fg="gray"
+        )
+        self.status_sessao.pack(pady=15)
+
         tk.Button(
             janela,
-            text="Encerrar",
-            command=self.encerrar
-        ).pack(pady=20)
+            text="Encerrar sessão",
+            command=self.encerrar_sessao,
+            width=22
+        ).pack(pady=5)
 
-        # Gerenciador de solicitações
+        tk.Button(
+            janela,
+            text="Fechar programa",
+            command=self.encerrar,
+            width=22
+        ).pack(pady=5)
+
         self.gerenciador_solicitacoes = GerenciadorSolicitacoes(
             self.janela
         )
 
         self.gerenciador_solicitacoes.iniciar_monitoramento()
+
+        self.janela.protocol(
+            "WM_DELETE_WINDOW",
+            self.encerrar
+        )
 
         self.verificar()
 
@@ -74,28 +104,49 @@ class USBLab:
                     text="Conecte o pendrive autorizado."
                 )
 
-        except Exception:
+                if self.gerenciador_solicitacoes.sessao_ativa:
+                    self.gerenciador_solicitacoes.encerrar_sessao()
+
+            if self.gerenciador_solicitacoes.sessao_ativa:
+                self.status_sessao.config(
+                    text="Sessão autorizada",
+                    fg="green"
+                )
+            else:
+                self.status_sessao.config(
+                    text="Nenhuma sessão autorizada",
+                    fg="gray"
+                )
+
+        except Exception as erro:
             self.status.config(
                 text="ERRO NA VERIFICAÇÃO",
                 fg="red"
             )
+            print("Erro:", erro)
 
         self.janela.after(1000, self.verificar)
+
+    def encerrar_sessao(self):
+        self.gerenciador_solicitacoes.encerrar_sessao()
+
+        self.status_sessao.config(
+            text="Sessão encerrada",
+            fg="red"
+        )
 
     def encerrar(self):
         self.ativo = False
 
         self.gerenciador_solicitacoes.monitoramento_ativo = False
-
-        if self.gerenciador_solicitacoes.sessao_ativa:
-            self.gerenciador_solicitacoes.encerrar_sessao()
+        self.gerenciador_solicitacoes.encerrar_sessao()
 
         self.janela.destroy()
 
 
 def iniciar():
     janela = tk.Tk()
-    app = USBLab(janela)
+    USBLab(janela)
     janela.mainloop()
 
 

@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | USB Security Lab</title>
+    <link rel="stylesheet" href="/painel/login.css">
+    <script src="/painel/login.js" defer></script>
+</head>
+<body>
+    <main class="login-container">
+        <div class="login-card">
+            <div class="logo">USB SECURITY LAB</div>
+            <p class="subtitle">Painel administrativo</p>
+
+            <h1>Bem-vindo de volta</h1>
+            <p>Entre para gerenciar os dispositivos e as sessões autorizadas.</p>
+
+            <form id="loginForm">
+                <label for="chave">Chave administrativa</label>
+                <input
+                    type="password"
+                    id="chave"
+                    autocomplete="off"
+                    required
+                    placeholder="Digite sua chave administrativa"
+                >
+
+                <button type="submit" id="entrar">
+                    Entrar no painel
+                </button>
+            </form>
+
+            <p id="mensagem" role="status"></p>
+        </div>
+    </main>
+</body>
+</html>

@@ -81,3 +81,28 @@ def pendrive_autorizado():
             continue
 
     return False
+
+
+def consultar_autorizacao():
+    """
+    Consulta a autorização do pendrive sem expor
+    informações sobre a chave privada.
+    """
+    try:
+        autorizado = pendrive_autorizado()
+
+        return {
+            "autorizado": autorizado,
+            "mensagem": (
+                "Pendrive autorizado."
+                if autorizado
+                else "Pendrive não autorizado ou ausente."
+            )
+        }
+
+    except (OSError, RuntimeError, ValueError) as erro:
+        return {
+            "autorizado": False,
+            "mensagem": "Não foi possível verificar o pendrive.",
+            "tipo_erro": type(erro).__name__
+        }

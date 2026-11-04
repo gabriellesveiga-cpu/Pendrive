@@ -1,0 +1,87 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: #171c28;
+    color: #f4f6fc;
+    font-family: Arial, sans-serif;
+}
+
+.login-container {
+    width: min(420px, 92%);
+}
+
+.login-card {
+    background: #242b3a;
+    border: 1px solid #3a4355;
+    border-radius: 18px;
+    padding: 36px;
+    box-shadow: 0 18px 50px #0004;
+}
+
+.logo {
+    color: #83aaff;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    color: #aeb9d0;
+    font-size: 13px;
+}
+
+h1 {
+    margin-top: 32px;
+    font-size: 27px;
+}
+
+p {
+    color: #b8c2d5;
+    line-height: 1.6;
+}
+
+label {
+    display: block;
+    margin: 24px 0 8px;
+    font-size: 14px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #4a5670;
+    background: #171c28;
+    color: white;
+}
+
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #83aaff;
+    color: #101522;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+#mensagem {
+    min-height: 20px;
+    color: #ff9eaa;
+    font-size: 13px;
+}
+
